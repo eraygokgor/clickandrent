@@ -1,0 +1,179 @@
+{% load clickandrent_extras %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Akshar&family=Roboto&display=swap" rel="stylesheet">
+    </head>
+    <body style="font-family: 'Roboto', sans-serif;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #A9DFBF;">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/" style="font-family: 'Akshar', sans-serif; font-size: 20px"><b>Click & Rent</b></a>
+              <div id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto">
+                </ul>
+                {% if not request.user.is_authenticated %}
+                <form class="d-flex">
+                  <a href="/signup" class="btn btn-outline-secondary" type="submit" style="font-size: 16px;">Sign Up</a>
+                  <div style="margin: 5px;"></div>
+                  <a href="/login" class="btn btn-outline-primary" type="submit" style="font-size: 16px;">Login</a>
+                </form>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <form class="d-flex">
+                  <a href="/profile" class="btn btn-outline-dark" type="submit" style="font-size: 16px;">Profile</a>
+                  <div style="margin: 5px;"></div>  
+                  <a href="/logout" class="btn btn-outline-danger" type="submit" style="font-size: 16px;">Logout</a>
+                </form>
+                {% endif %}
+              </div>
+            </div>
+          </nav>
+        <div class="container">
+            <figure class="text-center">
+                <blockquote class="blockquote">
+
+                  <div class="container" style="width: 50%; height: 100%">
+                    <div style="text-align: center; font-family: 'Akshar', sans-serif; font-size: 24px; padding-top: 3%;">Details</div>
+                    
+                    <div class="row" style="border: solid 2px black; border-radius: 5px; margin: 2%;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; word-wrap: break-word;">
+                      {{data.title}}
+                      </div>
+                      <div style="border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; word-wrap: break-word;">
+                        <img src="data:image/png;base64,{{data.photo}}" style="height: 100%; width: 100%; object-fit: contain">
+                        </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Category: </b>{{data.category}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px;  word-wrap: break-word;">
+                        {{data.description}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Location: </b>{{data.location}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Fee: </b>${{data.fee}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        {{data.name}} {{data.last_name}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Phone: </b>+90{{data.phone}}
+                      </div>
+                      {% if data.category == "Real Estate" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Rooms: </b>{{data.est_rooms}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Area: </b>{{data.est_area}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Age: </b>{{data.est_age}}
+                      </div>
+                      {% elif data.category == "Vehicle" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Year: </b>{{data.vehicle_year}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Brand: </b>{{data.vehicle_brand}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Model: </b>{{data.vehicle_model}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Gear: </b>{{data.vehicle_gear}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Fuel: </b>{{data.vehicle_fuel}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Color: </b>{{data.vehicle_color}}
+                      </div>
+                      {% elif data.category == "Computer" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Year: </b>{{data.comp_year}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Brand: </b>{{data.comp_brand}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Model: </b>{{data.comp_model}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Capacity: </b>{{data.comp_capacity}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Resolution: </b>{{data.comp_resolution}}
+                      </div>
+                      {% elif data.category == "Home Appliance" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Year: </b>{{data.home_year}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Brand: </b>{{data.home_brand}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Model: </b>{{data.home_model}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Power: </b>{{data.home_power}}
+                      </div>
+                      {% elif data.category == "Book" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Year: </b>{{data.book_year}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Edition: </b>{{data.book_edition}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Language: </b>{{data.book_language}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Publisher: </b>{{data.book_publisher}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Writer: </b>{{data.book_writer}}
+                      </div>
+                      {% elif data.category == "Musical Instrument" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Type: </b>{{data.music_type}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Year: </b>{{data.music_year}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Brand: </b>{{data.music_brand}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Model: </b>{{data.music_model}}
+                      </div>
+                      {% elif data.category == "Other" %}
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Year: </b>{{data.other_year}}
+                      </div>
+                      <div style="border: solid 1px black; border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <b>Brand: </b>{{data.other_brand}}
+                      </div>
+                      {% endif %}
+                      {% if request.user.id == data.user_id %}
+                      <div style="border-radius: 5px; margin: 1% 1% 1% 1%; width: 98%; font-size: 16px; word-wrap: break-word;">
+                        <form action="/deletead" method="post">
+                          {% csrf_token %}
+                          <input type="hidden" id="object_id" name="object_id" value='{{data|mongo_id}}'>
+                          <input class="btn btn-outline-danger" type="submit" value="Delete!" style="font-size: 14px;">
+                      </form>
+                      
+                      </div>
+                      {% endif %}
+                    </div>             
+                  </div>
+
+                </blockquote>
+              </figure>
+        </div>
+    </body>
+</html>

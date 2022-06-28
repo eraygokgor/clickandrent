@@ -1,0 +1,54 @@
+{% load static %}
+{% load clickandrent_extras %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Akshar&family=Roboto&display=swap" rel="stylesheet">
+
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body style="font-family: 'Roboto', sans-serif;">
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #A9DFBF;">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="font-family: 'Akshar', sans-serif; font-size: 20px"><b>Click & Rent</b></a>
+            <div id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto">
+              </ul>
+              <form class="d-flex">
+                <a href="/profile" class="btn btn-outline-dark" type="submit" style="font-size: 16px;">Profile</a>
+                <div style="margin: 5px;"></div>  
+                <a href="/logout" class="btn btn-outline-danger" type="submit" style="font-size: 16px;">Logout</a>
+              </form>
+            </div>
+          </div>
+        </nav>
+        <div class="container">
+          <figure class="text-center">
+              <blockquote class="blockquote">
+
+                
+                <div class="container" style="width: 50%; height: 100%">
+                  <div style="text-align: center; font-family: 'Akshar', sans-serif; font-size: 24px; padding-top: 3%;">My Ads</div>
+                  {% for ad in data %}
+                  <div class="row"  style="cursor: pointer; border: solid 2px black; border-radius: 5px; margin: 2%; align-items: center; justify-content: center;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="col" style="margin: 0.5%; border-radius: 3px; max-width: 30%; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; font-size: 16px;">
+                      {{ad.category}}
+                    </form>
+                    </div>
+                    <div class="col" onclick="location.href='/adverts/{{ad|mongo_id}}';" style="border: solid 1px black; margin: 0.5%; border-radius: 3px; max-width: 70%; display: inline-flex; flex-direction: column; align-items: center; justify-content: center;">
+                      <p><b style="height: auto; font-size: 14px">{{ad.title}}</b></p>
+                      <p style="font-size: 12px; margin-bottom: 0;">Price: ${{ad.fee}}</p>
+                    </div>
+                  </div>
+                  {% endfor %}
+
+                  
+              </blockquote>
+            </figure>
+      </div>
+  </body>
+</html>
