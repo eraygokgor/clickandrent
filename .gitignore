@@ -3,8 +3,10 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+.ebextensions/*
 
 
 # Config Files
 .env
 settings-deploy.py
+db.sqlite3
